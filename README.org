@@ -114,7 +114,7 @@ General is a nice plugin for keybinding management. Setting it up here.
 #+end_src
 
 * Fonts
-Setting default font sizes, and making comments and keywords to be italicized.
+Setting default font sizes, and making comments and keywords italicized.
 
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
