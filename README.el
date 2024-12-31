@@ -109,6 +109,8 @@
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
+(electric-indent-mode -1)
+
 (use-package which-key
   :init
     (which-key-mode 1)

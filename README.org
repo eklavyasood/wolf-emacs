@@ -7,7 +7,7 @@
 - [[#important-programs-to-load-first][Important Programs to load first]]
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#load-evil-mode][Load Evil Mode]]
-  - [[#generalel-keybindings][General.el Keybindings]]
+  - [[#general-keybindings][General Keybindings]]
 - [[#fonts][Fonts]]
 - [[#graphical-user-interface-tweaks][Graphical User Interface Tweaks]]
   - [[#disable-menubar-toolbars-and-scrollbar][Disable menubar, toolbars and scrollbar]]
@@ -15,11 +15,13 @@
 - [[#org-mode][Org Mode]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
+  - [[#disable-electric-indent][Disable Electric Indent]]
 - [[#which-key][Which-Key]]
 
 * Important Programs to load first
 
 ** Elpaca Package Manager
+Disabling the default Emacs package manager and setting up Elpaca instead.
 
 #+begin_src emacs-lisp
   (defvar elpaca-installer-version 0.8)
@@ -63,6 +65,7 @@
 #+end_src
 
 ** Load Evil Mode
+Vim keybindings are simply better. Setting them up via evil-mode.
 
 #+begin_src emacs-lisp
   (elpaca elpaca-use-package
@@ -87,7 +90,8 @@
   (use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
 #+end_src
 
-** General.el Keybindings
+** General Keybindings
+General is a nice plugin for keybinding management. Setting it up here.
 
 #+begin_src emacs-lisp
   (use-package general
@@ -110,6 +114,7 @@
 #+end_src
 
 * Fonts
+Setting default font sizes, and making comments and keywords to be italicized.
 
 #+begin_src emacs-lisp
   (set-face-attribute 'default nil
@@ -132,8 +137,10 @@
 #+end_src
 
 * Graphical User Interface Tweaks
+Configs to make the UI experience better.
 
 ** Disable menubar, toolbars and scrollbar
+No one needs these, just give me a rectangle that displays text. Using the mouse is for weak people.
 
 #+begin_src emacs-lisp
   (menu-bar-mode -1)
@@ -142,6 +149,7 @@
 #+end_src
 
 ** Display line numbers and truncated lines
+Need these.
 
 #+begin_src emacs-lisp
   (global-display-line-numbers-mode 1)
@@ -149,8 +157,10 @@
 #+end_src
 
 * Org Mode
+Amazing Emacs feature, but it needs some configuration (just like everything in the world because sane defaults don't actually exist anywhere.
 
 ** Enabling Table of Contents
+Table of Contents generation that just works.
 
 #+begin_src emacs-lisp
   (use-package toc-org
@@ -159,6 +169,7 @@
 #+end_src
 
 ** Enabling Org Bullets
+Default Org Mode uses asterisks for bullets, which don't look that good. Replacing them with stylised bullets here.
 
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook 'org-indent-mode)
@@ -166,7 +177,15 @@
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
+** Disable Electric Indent
+Org mode source blocks have weird behaviour surrounding indentation, which has to do with Electric Indent.
+
+#+begin_src emacs-lisp
+  (electric-indent-mode -1)
+#+end_src
+
 * Which-Key
+Which-Key displays helpful keybinding tooltips.
 
 #+begin_src emacs-lisp
   (use-package which-key
