@@ -157,7 +157,7 @@ Need these.
 #+end_src
 
 * Org Mode
-Amazing Emacs feature, but it needs some configuration (just like everything in the world because sane defaults don't actually exist anywhere.
+Amazing Emacs feature, but it needs some configuration (just like everything in the world because sane defaults don't actually exist anywhere)
 
 ** Enabling Table of Contents
 Table of Contents generation that just works.
