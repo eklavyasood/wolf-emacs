@@ -67,14 +67,47 @@
     :prefix "SPC" ;; set leader
     :global-prefix "M-SPC") ;; access leader in insert mode
 
-    (wolf/leader
-      "b"  '(:ignore t :wk "buffer")
-      "bb" '(switch-to-buffer :wk "Switch buffer")
-      "bk" '(kill-this-buffer :wk "Kill this buffer")
-      "bn" '(next-buffer :wk "Next buffer")
-      "bn" '(previous-buffer :wk "Previous buffer")
-      "br" '(revert-buffer :wk "Reload buffer"))
+(wolf/leader
+  ;; buffer stuff
+  "b"  '(:ignore t :wk "Buffer")
+  "b b" '(ibuffer :wk "Ibuffer")
+  "b k" '(kill-this-buffer :wk "Kill this buffer")
+  "b n" '(next-buffer :wk "Next buffer")
+  "b n" '(previous-buffer :wk "Previous buffer")
+  "b r" '(revert-buffer :wk "Reload buffer")
 )
+
+(wolf/leader
+  "e"  '(:ignore t :wk "Evaluate")
+  "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
+  "e d" '(eval-defun :wk "Evaluate defun containing or after point")
+  "e e" '(eval-expression :wk "Evaluate an elisp expression")
+  "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
+  "e r" '(eval-region :wk "Evaluate elisp in region")
+)
+
+(wolf/leader
+  "g"  '(:ignore t :wk "Magit")
+  "g g"  '(magit-status :wk "Magit Status")
+)
+
+(wolf/leader
+  "h"  '(:ignore t :wk "Help")
+  "h f"  '(describe-function :wk "Describe function")
+  "h v"  '(describe-variable :wk "Describe variable")
+  "h r r"  '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :wk "Reload emacs config")
+)
+
+(wolf/leader
+  "t"  '(:ignore t :wk "Toggle")
+  "t l"  '(display-line-numbers-mode :wk "Toggle line numbers")
+)
+
+(wolf/leader
+  "."  '(find-file :wk "Find File") 
+  "f p" '((lambda () (interactive) (find-file "~/.config/emacs/README.org")) :wk "Edit emacs config")
+  "TAB TAB"  '(comment-line :wk "Comment lines") 
+))
 
 (use-package transient)
 
@@ -99,6 +132,11 @@
 (set-face-attribute 'font-lock-keyword-face nil
   :slant 'italic)
 
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+(global-set-key (kbd "<C-wheel-down>") 'text-scale-increase)
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -115,6 +153,16 @@
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (electric-indent-mode -1)
+
+(require 'org-tempo)
+
+(use-package sudo-edit
+  :config
+    (wolf/leader
+      "f u" '(sudo-edit-find-file :wk "Sudo find file")
+      "f U" '(sudo-edit :wk "Sudo edit file")
+    )
+)
 
 (use-package which-key
   :init

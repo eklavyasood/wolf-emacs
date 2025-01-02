@@ -8,8 +8,11 @@
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#load-evil-mode][Load Evil Mode]]
   - [[#general-keybindings][General Keybindings]]
+- [[#plugins][Plugins]]
   - [[#magit][Magit]]
 - [[#fonts][Fonts]]
+  - [[#setting-the-default-font-faces][Setting the default font faces]]
+  - [[#zooming-inout][Zooming in/out]]
 - [[#graphical-user-interface-tweaks][Graphical User Interface Tweaks]]
   - [[#disable-menubar-toolbars-and-scrollbar][Disable menubar, toolbars and scrollbar]]
   - [[#display-line-numbers-and-truncated-lines][Display line numbers and truncated lines]]
@@ -17,6 +20,8 @@
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
   - [[#disable-electric-indent][Disable Electric Indent]]
+  - [[#org-tempo][Org-Tempo]]
+- [[#sudo-edit][Sudo Edit]]
 - [[#which-key][Which-Key]]
 
 * Important Programs to load first
@@ -98,6 +103,8 @@ Vim keybindings are simply better. Setting them up via evil-mode.
 ** General Keybindings
 General is a nice plugin for keybinding management. Setting it up here.
 
+*** General.el setup
+
 #+begin_src emacs-lisp
 
   (use-package general
@@ -108,18 +115,88 @@ General is a nice plugin for keybinding management. Setting it up here.
       :keymaps 'override
       :prefix "SPC" ;; set leader
       :global-prefix "M-SPC") ;; access leader in insert mode
+  
+#+end_src
 
-      (wolf/leader
-        "b"  '(:ignore t :wk "buffer")
-        "bb" '(switch-to-buffer :wk "Switch buffer")
-        "bk" '(kill-this-buffer :wk "Kill this buffer")
-        "bn" '(next-buffer :wk "Next buffer")
-        "bn" '(previous-buffer :wk "Previous buffer")
-        "br" '(revert-buffer :wk "Reload buffer"))
+*** Buffer Keybindings
+
+#+begin_src emacs-lisp
+
+  (wolf/leader
+    ;; buffer stuff
+    "b"  '(:ignore t :wk "Buffer")
+    "b b" '(ibuffer :wk "Ibuffer")
+    "b k" '(kill-this-buffer :wk "Kill this buffer")
+    "b n" '(next-buffer :wk "Next buffer")
+    "b n" '(previous-buffer :wk "Previous buffer")
+    "b r" '(revert-buffer :wk "Reload buffer")
   )
 
 #+end_src
 
+*** Code Eval Keybindings
+
+#+begin_src emacs-lisp
+
+  (wolf/leader
+    "e"  '(:ignore t :wk "Evaluate")
+    "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
+    "e d" '(eval-defun :wk "Evaluate defun containing or after point")
+    "e e" '(eval-expression :wk "Evaluate an elisp expression")
+    "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
+    "e r" '(eval-region :wk "Evaluate elisp in region")
+  )
+
+#+end_src
+
+*** Magit Keybindings
+
+#+begin_src emacs-lisp
+
+  (wolf/leader
+    "g"  '(:ignore t :wk "Magit")
+    "g g"  '(magit-status :wk "Magit Status")
+  )
+
+#+end_src
+
+*** Help Keybindings
+
+#+begin_src emacs-lisp
+
+  (wolf/leader
+    "h"  '(:ignore t :wk "Help")
+    "h f"  '(describe-function :wk "Describe function")
+    "h v"  '(describe-variable :wk "Describe variable")
+    "h r r"  '((lambda () (interactive) (load-file "~/.config/emacs/init.el")) :wk "Reload emacs config")
+  )
+
+#+end_src
+
+*** Toggles
+
+#+begin_src emacs-lisp
+
+  (wolf/leader
+    "t"  '(:ignore t :wk "Toggle")
+    "t l"  '(display-line-numbers-mode :wk "Toggle line numbers")
+  )
+
+#+end_src
+
+*** Misc Keybindings
+
+#+begin_src emacs-lisp
+
+  (wolf/leader
+    "."  '(find-file :wk "Find File") 
+    "f p" '((lambda () (interactive) (find-file "~/.config/emacs/README.org")) :wk "Edit emacs config")
+    "TAB TAB"  '(comment-line :wk "Comment lines") 
+  ))
+
+#+end_src
+
+* Plugins
 ** Magit
 Installing Magit, the Emacs Git interface.
 #+begin_src emacs-lisp
@@ -134,6 +211,7 @@ Installing Magit, the Emacs Git interface.
 * Fonts
 Setting default font sizes, and making comments and keywords italicized.
 
+** Setting the default font faces
 #+begin_src emacs-lisp
 
   (set-face-attribute 'default nil
@@ -153,6 +231,17 @@ Setting default font sizes, and making comments and keywords italicized.
 
   (set-face-attribute 'font-lock-keyword-face nil
     :slant 'italic)
+
+#+end_src
+
+** Zooming in/out
+
+#+begin_src emacs-lisp
+
+  (global-set-key (kbd "C-=") 'text-scale-increase)
+  (global-set-key (kbd "C--") 'text-scale-decrease)
+  (global-set-key (kbd "<C-wheel-up>") 'text-scale-increase)
+  (global-set-key (kbd "<C-wheel-down>") 'text-scale-increase)
 
 #+end_src
 
@@ -211,6 +300,30 @@ Org mode source blocks have weird behaviour surrounding indentation, which has t
 #+begin_src emacs-lisp
 
   (electric-indent-mode -1)
+
+#+end_src
+
+** Org-Tempo
+This enables usage of the `<s TAB ` shorthand to create a source code block.
+
+#+begin_src emacs-lisp
+  
+  (require 'org-tempo)
+
+#+end_src
+
+* Sudo Edit
+Sudo-Edit is a plugin that lets you edit files with superuser access.
+
+#+begin_src emacs-lisp
+
+  (use-package sudo-edit
+    :config
+      (wolf/leader
+        "f u" '(sudo-edit-find-file :wk "Sudo find file")
+        "f U" '(sudo-edit :wk "Sudo edit file")
+      )
+  )
 
 #+end_src
 
