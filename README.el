@@ -51,9 +51,9 @@
   (setq evil-split-window-below t)
   (evil-mode))
 (use-package evil-collection
+  :ensure t
   :after evil
-  :config
-  (setq evil-collection-mode-list '(dashboard dired ibuffer))
+  :init
   (evil-collection-init))
 
 (use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
@@ -75,6 +75,11 @@
       "bn" '(previous-buffer :wk "Previous buffer")
       "br" '(revert-buffer :wk "Reload buffer"))
 )
+
+(use-package transient)
+
+(use-package magit
+  :ensure t)
 
 (set-face-attribute 'default nil
   :height 130

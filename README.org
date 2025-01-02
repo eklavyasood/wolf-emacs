@@ -8,6 +8,7 @@
   - [[#elpaca-package-manager][Elpaca Package Manager]]
   - [[#load-evil-mode][Load Evil Mode]]
   - [[#general-keybindings][General Keybindings]]
+  - [[#magit][Magit]]
 - [[#fonts][Fonts]]
 - [[#graphical-user-interface-tweaks][Graphical User Interface Tweaks]]
   - [[#disable-menubar-toolbars-and-scrollbar][Disable menubar, toolbars and scrollbar]]
@@ -24,6 +25,7 @@
 Disabling the default Emacs package manager and setting up Elpaca instead.
 
 #+begin_src emacs-lisp
+
   (defvar elpaca-installer-version 0.8)
   (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
   (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
@@ -62,12 +64,14 @@ Disabling the default Emacs package manager and setting up Elpaca instead.
       (load "./elpaca-autoloads")))
   (add-hook 'after-init-hook #'elpaca-process-queues)
   (elpaca `(,@elpaca-order))
+
 #+end_src
 
 ** Load Evil Mode
 Vim keybindings are simply better. Setting them up via evil-mode.
 
 #+begin_src emacs-lisp
+
   (elpaca elpaca-use-package
     (elpaca-use-package-mode)
     (setq elpaca-use-package-by-default t))
@@ -82,18 +86,20 @@ Vim keybindings are simply better. Setting them up via evil-mode.
     (setq evil-split-window-below t)
     (evil-mode))
   (use-package evil-collection
+    :ensure t
     :after evil
-    :config
-    (setq evil-collection-mode-list '(dashboard dired ibuffer))
+    :init
     (evil-collection-init))
 
   (use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
+
 #+end_src
 
 ** General Keybindings
 General is a nice plugin for keybinding management. Setting it up here.
 
 #+begin_src emacs-lisp
+
   (use-package general
     :config
     (general-evil-setup)
@@ -111,12 +117,25 @@ General is a nice plugin for keybinding management. Setting it up here.
         "bn" '(previous-buffer :wk "Previous buffer")
         "br" '(revert-buffer :wk "Reload buffer"))
   )
+
+#+end_src
+
+** Magit
+Installing Magit, the Emacs Git interface.
+#+begin_src emacs-lisp
+
+  (use-package transient)
+
+  (use-package magit
+    :ensure t)
+
 #+end_src
 
 * Fonts
 Setting default font sizes, and making comments and keywords italicized.
 
 #+begin_src emacs-lisp
+
   (set-face-attribute 'default nil
     :height 130
     :weight 'medium)
@@ -134,6 +153,7 @@ Setting default font sizes, and making comments and keywords italicized.
 
   (set-face-attribute 'font-lock-keyword-face nil
     :slant 'italic)
+
 #+end_src
 
 * Graphical User Interface Tweaks
@@ -143,17 +163,21 @@ Configs to make the UI experience better.
 No one needs these, just give me a rectangle that displays text. Using the mouse is for weak people.
 
 #+begin_src emacs-lisp
+
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
+
 #+end_src
 
 ** Display line numbers and truncated lines
 Need these.
 
 #+begin_src emacs-lisp
+
   (global-display-line-numbers-mode 1)
   (global-visual-line-mode t)
+
 #+end_src
 
 * Org Mode
@@ -163,31 +187,38 @@ Amazing Emacs feature, but it needs some configuration (just like everything in 
 Table of Contents generation that just works.
 
 #+begin_src emacs-lisp
+
   (use-package toc-org
     :commands toc-org-enable
     :init (add-hook 'org-mode-hook 'toc-org-enable))
+
 #+end_src
 
 ** Enabling Org Bullets
 Default Org Mode uses asterisks for bullets, which don't look that good. Replacing them with stylised bullets here.
 
 #+begin_src emacs-lisp
+
   (add-hook 'org-mode-hook 'org-indent-mode)
   (use-package org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
 #+end_src
 
 ** Disable Electric Indent
 Org mode source blocks have weird behaviour surrounding indentation, which has to do with Electric Indent.
 
 #+begin_src emacs-lisp
+
   (electric-indent-mode -1)
+
 #+end_src
 
 * Which-Key
 Which-Key displays helpful keybinding tooltips.
 
 #+begin_src emacs-lisp
+
   (use-package which-key
     :init
       (which-key-mode 1)
@@ -204,5 +235,5 @@ Which-Key displays helpful keybinding tooltips.
       which-key-max-description-length 25
       which-key-allow-imprecise-window-fit t
       which-key-separator " → "))
-     
+
 #+end_src
