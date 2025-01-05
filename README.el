@@ -11,7 +11,7 @@
 (use-package all-the-icons-dired
   :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
 
-(setq backup-directory-alist '((".*" . "~/.trash")))
+(setq backup-directory-alist '((".*" . "~/.local/share/Trash/files")))
 
 (use-package company
   :defer 2
@@ -80,6 +80,8 @@
       eshell-destroy-buffer-when-process-dies t
       eshell-visual-commands'("bash" "htop" "ssh" "top" "zsh"))
 
+(setq evil-undo-system 'undo-redo)
+
 (use-package evil
   :init
   (setq evil-want-integration t)
@@ -94,6 +96,16 @@
   (evil-collection-init))
 
 (use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
+
+
+;; Using RETURN to follow links in Org/Evil
+;; Unmap keys in 'evil-maps if not done, (setq org-return-follows-link will not work
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "SPC") nil)
+  (define-key evil-motion-state-map (kbd "RET") nil)
+  (define-key evil-motion-state-map (kbd "TAB") nil))
+;; Setting RETURN key in org-mode to follow links
+(setq org-return-follows-link t)
 
 (use-package flycheck
   :ensure t
@@ -243,6 +255,10 @@
   "m d" '(:ignore t :wk "Date/deadline")
   "m d t" '(org-time-stamp :wk "Org time stamp")
 )
+
+(wolf/leader
+  "q"   '(:ignore t :wk "Quit")
+  "q f" '(delete-frame :wk "Quit this frame"))
 
 (wolf/leader
   "h"     '(:ignore t :wk "Help")

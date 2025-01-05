@@ -30,6 +30,7 @@
   - [[#eshellevaluate-keybindings][Eshell/Evaluate Keybindings]]
   - [[#magit-keybindings][Magit Keybindings]]
   - [[#org-mode-keybindings][Org Mode Keybindings]]
+  - [[#quit-keybindings][Quit Keybindings]]
   - [[#help-keybindings][Help Keybindings]]
   - [[#toggles][Toggles]]
   - [[#misc-keybindings][Misc Keybindings]]
@@ -87,7 +88,7 @@ By default, Emacs creates auto-backups of files in their original directoryes. T
 
 #+begin_src emacs-lisp
 
-(setq backup-directory-alist '((".*" . "~/.trash")))
+(setq backup-directory-alist '((".*" . "~/.local/share/Trash/files")))
 
 #+end_src
 
@@ -198,20 +199,32 @@ Vim keybindings are simply better. Setting them up via evil-mode.
 
 #+begin_src emacs-lisp
 
-  (use-package evil
-    :init
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    (setq evil-vsplit-window-right t)
-    (setq evil-split-window-below t)
-    (evil-mode))
-  (use-package evil-collection
-    :ensure t
-    :after evil
-    :init
-    (evil-collection-init))
+(setq evil-undo-system 'undo-redo)
 
-  (use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
+  (evil-mode))
+(use-package evil-collection
+  :ensure t
+  :after evil
+  :init
+  (evil-collection-init))
+
+(use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
+
+
+;; Using RETURN to follow links in Org/Evil
+;; Unmap keys in 'evil-maps if not done, (setq org-return-follows-link will not work
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "SPC") nil)
+  (define-key evil-motion-state-map (kbd "RET") nil)
+  (define-key evil-motion-state-map (kbd "TAB") nil))
+;; Setting RETURN key in org-mode to follow links
+(setq org-return-follows-link t)
 
 #+end_src
 
@@ -453,6 +466,16 @@ General is a nice plugin for keybinding management. Setting it up here.
     "m d" '(:ignore t :wk "Date/deadline")
     "m d t" '(org-time-stamp :wk "Org time stamp")
   )
+
+#+end_src
+
+** Quit Keybindings
+
+#+begin_src emacs-lisp
+
+(wolf/leader
+  "q"   '(:ignore t :wk "Quit")
+  "q f" '(delete-frame :wk "Quit this frame"))
 
 #+end_src
 
