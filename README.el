@@ -29,24 +29,24 @@
   :diminish
   :hook (company-mode . company-box-mode))
 
-(use-package dashboard
-  :ensure t
-  :init
-    (setq initial-buffer-choice 'dashboard-open)
-    (setq dashboard-set-heading-icons t)
-    (setq dashboard-set-file-icons t)
-    (setq dashboard-icon-type 'all-the-icons)
-    (setq dashboard-startup-banner 'logo)
-    (setq dashboard-center-content nil)
-    (setq dashboard-items '((recents . 5)
-                            (agenda . 5)
-                            (bookmarks . 3)
-                            (projects . 3)
-                            (registers . 3)))
-  :config
-    (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
-    (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
-    (dashboard-setup-startup-hook))
+;;(use-package dashboard
+;;  :ensure t
+;;  :init
+;;    (setq initial-buffer-choice 'dashboard-open
+;;          dashboard-set-heading-icons t
+;;          dashboard-set-file-icons t
+;;          dashboard-icon-type 'all-the-icons
+;;          dashboard-startup-banner 'logo
+;;          dashboard-center-content t
+;;          dashboard-items '((recents . 5)
+;;                            (bookmarks . 3)
+;;                            (projects . 3)
+;;                            (registers . 5)
+;;                            (agenda . 5)))
+;;  :config
+;;    (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
+;;    (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
+;;    (dashboard-setup-startup-hook))
 
 (use-package diminish)
 
@@ -258,9 +258,11 @@
   "m d" '(:ignore t :wk "Date/deadline")
   "m d t" '(org-time-stamp :wk "Org time stamp")
 )
+(setq warning-minimum-level :warning)
 
 (wolf/leader
   "q"   '(:ignore t :wk "Quit")
+  "q q" '(save-buffers-kill-terminal :wk "Quit emacs")
   "q f" '(delete-frame :wk "Quit this frame"))
 
 (wolf/leader
