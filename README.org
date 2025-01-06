@@ -21,6 +21,7 @@
 - [[#graphical-user-interface-tweaks][Graphical User Interface Tweaks]]
   - [[#disable-menubar-toolbars-and-scrollbar][Disable menubar, toolbars and scrollbar]]
   - [[#display-relative-line-numbers-and-truncated-lines][Display relative line numbers and truncated lines]]
+  - [[#transparency][Transparency]]
 - [[#ivy-counsel][Ivy (Counsel)]]
 - [[#keybindings][Keybindings]]
   - [[#generalel-setup][General.el setup]]
@@ -300,9 +301,18 @@ Need these.
 
 #+begin_src emacs-lisp
 
-  (global-display-line-numbers-mode t)
-  (global-visual-line-mode t)
-  (setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
+(global-visual-line-mode t)
+(setq display-line-numbers-type 'relative)
+
+#+end_src
+
+** Transparency
+
+#+begin_src emacs-lisp
+
+(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background 90))
 
 #+end_src
 
@@ -584,16 +594,16 @@ A file tree viewer.
     (setq neo-smart-open t
           neo-show-hidden-files t
           neo-window-width 45
-          neo-window-fixed size nil
+          neo-window-fixed-size nil
           inhibit-compacting-font-caches t
-          projectile-switch-project-action 'neotree-projectile-action
-          add-hook 'neo-after-create-hook
-            #'(lambda (_)
-                (with-current-buffer (get-buffer neo-buffer-name)
-                  (setq truncate-lines t)
-                  (setq word-wrap nil)
-                  (make-local-variable 'auto-hscroll-mode)
-                  (setq auto-hscroll-mode nil)))))
+          projectile-switch-project-action 'neotree-projectile-action)
+    (add-hook 'neo-after-create-hook
+      #'(lambda (_)
+          (with-current-buffer (get-buffer neo-buffer-name)
+            (setq truncate-lines t)
+            (setq word-wrap nil)
+            (make-local-variable 'auto-hscroll-mode)
+            (setq auto-hscroll-mode nil)))))
 
 #+end_src
 

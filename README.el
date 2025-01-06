@@ -144,6 +144,9 @@
 (global-visual-line-mode t)
 (setq display-line-numbers-type 'relative)
 
+(set-frame-parameter nil 'alpha-background 90)
+(add-to-list 'default-frame-alist '(alpha-background 90))
+
 (use-package counsel
   :after ivy
   :diminish
@@ -319,16 +322,16 @@
     (setq neo-smart-open t
           neo-show-hidden-files t
           neo-window-width 45
-          neo-window-fixed size nil
+          neo-window-fixed-size nil
           inhibit-compacting-font-caches t
-          projectile-switch-project-action 'neotree-projectile-action
-          add-hook 'neo-after-create-hook
-            #'(lambda (_)
-                (with-current-buffer (get-buffer neo-buffer-name)
-                  (setq truncate-lines t)
-                  (setq word-wrap nil)
-                  (make-local-variable 'auto-hscroll-mode)
-                  (setq auto-hscroll-mode nil)))))
+          projectile-switch-project-action 'neotree-projectile-action)
+    (add-hook 'neo-after-create-hook
+      #'(lambda (_)
+          (with-current-buffer (get-buffer neo-buffer-name)
+            (setq truncate-lines t)
+            (setq word-wrap nil)
+            (make-local-variable 'auto-hscroll-mode)
+            (setq auto-hscroll-mode nil)))))
 
 (use-package toc-org
   :commands toc-org-enable
