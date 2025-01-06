@@ -46,6 +46,8 @@
 - [[#projectile][Projectile]]
 - [[#rainbow-mode][Rainbow Mode]]
 - [[#sudo-edit][Sudo Edit]]
+- [[#vterm][Vterm]]
+- [[#vterm-toggle][Vterm-Toggle]]
 - [[#which-key][Which-Key]]
 
 * Important Programs to load first
@@ -514,6 +516,7 @@ General is a nice plugin for keybinding management. Setting it up here.
   "t"  '(:ignore t :wk "Toggle")
   "t l"  '(display-line-numbers-mode :wk "Toggle line numbers")
   "t n"  '(neotree-toggle :wk "Toggle neotree")
+  "t v"  '(vterm-toggle :wk "Toggle vterm")
 )
 
 #+end_src
@@ -676,6 +679,46 @@ Sudo-Edit is a plugin that lets you edit files with superuser access.
 )
 
 #+end_src
+
+* Vterm
+A terminal emulator within Emacs.
+
+#+begin_src emacs-lisp
+
+(use-package vterm
+  :config
+    (setq shell-file-name "zsh"
+	    vterm-shell "zsh"
+          vterm-max-scrollback 5000))
+
+#+end_src
+
+* Vterm-Toggle
+Toggles between the vterm buffer and whatever buffer you're editing.
+
+#+begin_src emacs-lisp
+
+(use-package vterm-toggle
+  :after vterm
+  :config
+    (setq vterm-toggle-fullscreen-p nil)
+    (setq vterm-toggle-scope 'project)
+    (add-to-list 'display-buffer-alist
+		 '((lambda (buffer-or-name _)
+		     (let ((buffer (get-buffer buffer-or-name)))
+		       (with-current-buffer buffer
+			 (or (equal major-mode 'vterm-mode)
+			     (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
+		   (display-buffer-reuse-window display-buffer-in-direction)
+		   ;;(display-buffer-reuse-window display-buffer-in-direction)
+		   ;;display-buffer-in-direction/direction/dedicated is added in emacs27
+		   ;;(direction . bottom)
+		   ;;(dedicated . t) ;dedicated is supported in emacs27
+		   (reusable-frames . visible)
+		   (window-height . 0.3))))
+
+#+end_src
+
 
 * Which-Key
 Which-Key displays helpful keybinding tooltips.
