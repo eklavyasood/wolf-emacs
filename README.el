@@ -196,25 +196,6 @@
   "d p" '(peep-dired :wk "Peep-dired"))
 
 (wolf/leader
-  "w" '(:ignore t :wk "Windows")
-  ;; Window splits
-  "w c" '(evil-window-delete :wk "Close window")
-  "w n" '(evil-window-new :wk "New window")
-  "w s" '(evil-window-split :wk "Horizontal split window")
-  "w v" '(evil-window-vsplit :wk "Vertical split window")
-  ;; Window motions
-  "w h" '(evil-window-left :wk "Window left")
-  "w j" '(evil-window-down :wk "Window down")
-  "w k" '(evil-window-up :wk "Window up")
-  "w l" '(evil-window-right :wk "Window right")
-  "w w" '(evil-window-next :wk "Goto next window")
-  ;; Move Windows
-  "w H" '(buf-move-left :wk "Buffer move left")
-  "w J" '(buf-move-down :wk "Buffer move down")
-  "w K" '(buf-move-up :wk "Buffer move up")
-  "w L" '(buf-move-right :wk "Buffer move right"))
-
-(wolf/leader
   "e"  '(:ignore t :wk "Eshell/Evaluate")
   "e b" '(eval-buffer :wk "Evaluate elisp in buffer")
   "e d" '(eval-defun :wk "Evaluate defun containing or after point")
@@ -224,33 +205,6 @@
   "e h" '(counsel-esh-history :wk "Eshell history")
   "e s" '(eshell :wk "Eshell")
 )
-
-(wolf/leader
-  "g"  '(:ignore t :wk "Magit")
-  "g g"  '(magit-status :wk "Magit Status")
-)
-
-(wolf/leader
-  "m"   '(:ignore t :wk "Org")
-  "m a" '(org-agenda :wk "Org Agenda")
-  "m e" '(org-export-dispatch :wk "Org export dispatch")
-  "m i" '(org-toggle-item :wk "Org toggle item")
-  "m t" '(org-todo :wk "Org todo")
-  "m B" '(org-babel-tangle :wk "Org babel tangle")
-  "m T" '(org-todo-list :wk "Org todo list")
-
-  "m b" '(:ignore t :wk "Tables")
-  "m b -" '(org-table0insert-hline :wk "Insert hline in table")
-
-  "m d" '(:ignore t :wk "Date/deadline")
-  "m d t" '(org-time-stamp :wk "Org time stamp")
-)
-(setq warning-minimum-level :warning)
-
-(wolf/leader
-  "q"   '(:ignore t :wk "Quit")
-  "q q" '(save-buffers-kill-terminal :wk "Quit emacs")
-  "q f" '(delete-frame :wk "Quit this frame"))
 
 (wolf/leader
   "h"     '(:ignore t :wk "Help")
@@ -274,10 +228,8 @@
   )
 
 (wolf/leader
-  "t"  '(:ignore t :wk "Toggle")
-  "t l"  '(display-line-numbers-mode :wk "Toggle line numbers")
-  "t n"  '(neotree-toggle :wk "Toggle neotree")
-  "t v"  '(vterm-toggle :wk "Toggle vterm")
+  "g"  '(:ignore t :wk "Magit")
+  "g g"  '(magit-status :wk "Magit Status")
 )
 
 (wolf/leader
@@ -287,6 +239,55 @@
   "f r" '(counsel-recentf :wk "Find recent files")
   "TAB TAB"  '(comment-line :wk "Comment lines") 
 ))
+
+(wolf/leader
+  "m"   '(:ignore t :wk "Org")
+  "m a" '(org-agenda :wk "Org Agenda")
+  "m e" '(org-export-dispatch :wk "Org export dispatch")
+  "m i" '(org-toggle-item :wk "Org toggle item")
+  "m t" '(org-todo :wk "Org todo")
+  "m I" '(org-toggle-inline-images :wk "Org toggle inline images")
+  "m B" '(org-babel-tangle :wk "Org babel tangle")
+  "m T" '(org-todo-list :wk "Org todo list")
+
+  "m b" '(:ignore t :wk "Tables")
+  "m b -" '(org-table0insert-hline :wk "Insert hline in table")
+
+  "m d" '(:ignore t :wk "Date/deadline")
+  "m d t" '(org-time-stamp :wk "Org time stamp")
+)
+(setq warning-minimum-level :warning)
+
+(wolf/leader
+  "q"   '(:ignore t :wk "Quit")
+  "q q" '(save-buffers-kill-terminal :wk "Quit emacs")
+  "q f" '(delete-frame :wk "Quit this frame"))
+
+(wolf/leader
+  "t"  '(:ignore t :wk "Toggle")
+  "t l"  '(display-line-numbers-mode :wk "Toggle line numbers")
+  "t n"  '(neotree-toggle :wk "Toggle neotree")
+  "t v"  '(vterm-toggle :wk "Toggle vterm")
+)
+
+(wolf/leader
+  "w" '(:ignore t :wk "Windows")
+  ;; Window splits
+  "w c" '(evil-window-delete :wk "Close window")
+  "w n" '(evil-window-new :wk "New window")
+  "w s" '(evil-window-split :wk "Horizontal split window")
+  "w v" '(evil-window-vsplit :wk "Vertical split window")
+  ;; Window motions
+  "w h" '(evil-window-left :wk "Window left")
+  "w j" '(evil-window-down :wk "Window down")
+  "w k" '(evil-window-up :wk "Window up")
+  "w l" '(evil-window-right :wk "Window right")
+  "w w" '(evil-window-next :wk "Goto next window")
+  ;; Move Windows
+  "w H" '(buf-move-left :wk "Buffer move left")
+  "w J" '(buf-move-down :wk "Buffer move down")
+  "w K" '(buf-move-up :wk "Buffer move up")
+  "w L" '(buf-move-right :wk "Buffer move right"))
 
 (use-package lua-mode)
 (use-package nix-mode

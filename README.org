@@ -471,6 +471,7 @@ General is a nice plugin for keybinding management. Setting it up here.
   "m e" '(org-export-dispatch :wk "Org export dispatch")
   "m i" '(org-toggle-item :wk "Org toggle item")
   "m t" '(org-todo :wk "Org todo")
+  "m I" '(org-toggle-inline-images :wk "Org toggle inline images")
   "m B" '(org-babel-tangle :wk "Org babel tangle")
   "m T" '(org-todo-list :wk "Org todo list")
 
