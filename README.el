@@ -67,19 +67,6 @@
     (evil-define-key 'normal dired-mode-map (kbd "k") 'peep-dired-prev-file)
     (evil-define-key 'normal dired-mode-map (kbd "l") 'dired-open-file))
 
-(use-package eshell-syntax-highlighting
-  :after esh-mode
-  :config (eshell-syntax-highlighting-global-mode +1))
-
-(setq eshell-rc-script (concat user-emacs-directory "eshell/profile")
-      eshell-aliases-file (concat user-emacs-directory "eshell/aliases")
-      eshell-history-size 5000
-      eshell-buffer-maximum-lines 5000
-      eshell-hist-ignoredups t
-      eshell-scroll-to-bottom-on-input t
-      eshell-destroy-buffer-when-process-dies t
-      eshell-visual-commands'("bash" "htop" "ssh" "top" "zsh"))
-
 (setq evil-undo-system 'undo-redo)
 
 (use-package evil
@@ -335,6 +322,9 @@
             (make-local-variable 'auto-hscroll-mode)
             (setq auto-hscroll-mode nil)))))
 
+(electric-indent-mode -1)
+(setq org-edit-src-content-indentation 0)
+
 (use-package toc-org
   :commands toc-org-enable
   :init (add-hook 'org-mode-hook 'toc-org-enable))
@@ -342,9 +332,6 @@
 (add-hook 'org-mode-hook 'org-indent-mode)
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-
-(electric-indent-mode -1)
-(setq org-edit-src-content-indentation 0)
 
 (require 'org-tempo)
 
@@ -358,13 +345,18 @@
   :hook
     ((org-mode prog-mode) . rainbow-mode))
 
-(use-package sudo-edit
-  :config
-    (wolf/leader
-      "f u" '(sudo-edit-find-file :wk "Sudo find file")
-      "f U" '(sudo-edit :wk "Sudo edit file")
-    )
-)
+(use-package eshell-syntax-highlighting
+  :after esh-mode
+  :config (eshell-syntax-highlighting-global-mode +1))
+
+(setq eshell-rc-script (concat user-emacs-directory "eshell/profile")
+      eshell-aliases-file (concat user-emacs-directory "eshell/aliases")
+      eshell-history-size 5000
+      eshell-buffer-maximum-lines 5000
+      eshell-hist-ignoredups t
+      eshell-scroll-to-bottom-on-input t
+      eshell-destroy-buffer-when-process-dies t
+      eshell-visual-commands'("bash" "htop" "ssh" "top" "zsh"))
 
 (use-package vterm
   :config
@@ -390,6 +382,14 @@
 		   ;;(dedicated . t) ;dedicated is supported in emacs27
 		   (reusable-frames . visible)
 		   (window-height . 0.3))))
+
+(use-package sudo-edit
+  :config
+    (wolf/leader
+      "f u" '(sudo-edit-find-file :wk "Sudo find file")
+      "f U" '(sudo-edit :wk "Sudo edit file")
+    )
+)
 
 (use-package which-key
   :init
