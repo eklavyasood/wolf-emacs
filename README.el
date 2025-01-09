@@ -238,7 +238,7 @@
   "f p" '((lambda () (interactive) (find-file "~/.config/emacs/README.org")) :wk "Edit emacs config")
   "f r" '(counsel-recentf :wk "Find recent files")
   "TAB TAB"  '(comment-line :wk "Comment lines") 
-))
+)
 
 (wolf/leader
   "m"   '(:ignore t :wk "Org")
@@ -287,7 +287,7 @@
   "w H" '(buf-move-left :wk "Buffer move left")
   "w J" '(buf-move-down :wk "Buffer move down")
   "w K" '(buf-move-up :wk "Buffer move up")
-  "w L" '(buf-move-right :wk "Buffer move right"))
+  "w L" '(buf-move-right :wk "Buffer move right")))
 
 (use-package lua-mode)
 (use-package nix-mode
