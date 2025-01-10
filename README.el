@@ -252,7 +252,7 @@
   "m T" '(org-todo-list :wk "Org todo list")
 
   "m b" '(:ignore t :wk "Tables")
-  "m b -" '(org-table0insert-hline :wk "Insert hline in table")
+  "m b -" '(org-table-insert-hline :wk "Insert hline in table")
 
   "m d" '(:ignore t :wk "Date/deadline")
   "m d t" '(org-time-stamp :wk "Org time stamp")
