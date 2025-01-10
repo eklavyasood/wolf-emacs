@@ -236,6 +236,7 @@
   "."  '(find-file :wk "Find File") 
   "SPC"  '(counsel-M-x :wk "Counsel M-x") 
   "f p" '((lambda () (interactive) (find-file "~/.config/emacs/README.org")) :wk "Edit emacs config")
+  "f n" '((lambda () (interactive) (find-file "~/.dotfiles/flake.nix")) :wk "Edit nix configuration")
   "f r" '(counsel-recentf :wk "Find recent files")
   "TAB TAB"  '(comment-line :wk "Comment lines") 
 )
