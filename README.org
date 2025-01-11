@@ -40,10 +40,11 @@
 - [[#modeline][Modeline]]
 - [[#neotree][Neotree]]
 - [[#org-mode][Org Mode]]
-  - [[#disable-electric-indent][Disable Electric Indent]]
+  - [[#disabling-electric-indent][Disabling Electric Indent]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
   - [[#enabling-org-bullets][Enabling Org Bullets]]
   - [[#org-tempo][Org-Tempo]]
+  - [[#setting-the-org-agenda-files-variable][Setting the ~org-agenda-files~ variable]]
 - [[#projectile][Projectile]]
 - [[#rainbow-mode][Rainbow Mode]]
 - [[#shells][Shells]]
@@ -55,7 +56,7 @@
 * wolf-emacs
 This is my personal configuration of GNU Emacs. I've scoured plugins, configs and sensible options from all over the internet, but specifically
 Derek Taylor's [[https://youtube.com/playlist?list=PL5--8gKSku15e8lXf7aLICFmAHQVo0KXX&si=PFw-idiNDn00J3Mw][Configuring Emacs]] series on YouTube has been incredibly helpful in getting a foothold into Emacs configuration.
-[[./res/wolf-emacs.png]]
+#+HTML: <div align="center"><img src="./res/wolf-emacs.png" width="100%"></div>
 
 * Important Programs to load first
 
@@ -468,21 +469,22 @@ General is a nice plugin for keybinding management. Setting it up here.
 
 (wolf/leader
   "m"   '(:ignore t :wk "Org")
-  "m a" '(org-agenda :wk "Org Agenda")
   "m e" '(org-export-dispatch :wk "Org export dispatch")
   "m i" '(org-toggle-item :wk "Org toggle item")
   "m t" '(org-todo :wk "Org todo")
   "m I" '(org-toggle-inline-images :wk "Org toggle inline images")
   "m B" '(org-babel-tangle :wk "Org babel tangle")
-  "m T" '(org-todo-list :wk "Org todo list")
 
   "m b" '(:ignore t :wk "Tables")
   "m b -" '(org-table-insert-hline :wk "Insert hline in table")
 
+  "m a" '(:ignore t :wk "Org Agenda")
+  "m a a" '(org-agenda :wk "Agenda")
+  "m a t" '(org-todo-list :wk "Org todo list")
+
   "m d" '(:ignore t :wk "Date/deadline")
   "m d t" '(org-time-stamp :wk "Org time stamp")
 )
-(setq warning-minimum-level :warning)
 
 #+end_src
 
@@ -600,7 +602,7 @@ A file tree viewer.
 * Org Mode
 Amazing Emacs feature, but it needs some configuration (just like everything in the world because sane defaults don't actually exist anywhere)
 
-** Disable Electric Indent
+** Disabling Electric Indent
 Org mode source blocks have weird behaviour surrounding indentation, which has to do with Electric Indent.
 
 #+begin_src emacs-lisp
@@ -638,6 +640,15 @@ This enables usage of the `<s TAB ` shorthand to create a source code block.
 #+begin_src emacs-lisp
   
   (require 'org-tempo)
+
+#+end_src
+
+** Setting the ~org-agenda-files~ variable
+This lets org-agenda find TODO tasks inside all org files in the directory specified (~/org)
+
+#+begin_src emacs-lisp
+
+(setq org-agenda-files '("~/org"))
 
 #+end_src
 

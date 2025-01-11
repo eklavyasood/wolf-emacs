@@ -243,21 +243,22 @@
 
 (wolf/leader
   "m"   '(:ignore t :wk "Org")
-  "m a" '(org-agenda :wk "Org Agenda")
   "m e" '(org-export-dispatch :wk "Org export dispatch")
   "m i" '(org-toggle-item :wk "Org toggle item")
   "m t" '(org-todo :wk "Org todo")
   "m I" '(org-toggle-inline-images :wk "Org toggle inline images")
   "m B" '(org-babel-tangle :wk "Org babel tangle")
-  "m T" '(org-todo-list :wk "Org todo list")
 
   "m b" '(:ignore t :wk "Tables")
   "m b -" '(org-table-insert-hline :wk "Insert hline in table")
 
+  "m a" '(:ignore t :wk "Org Agenda")
+  "m a a" '(org-agenda :wk "Agenda")
+  "m a t" '(org-todo-list :wk "Org todo list")
+
   "m d" '(:ignore t :wk "Date/deadline")
   "m d t" '(org-time-stamp :wk "Org time stamp")
 )
-(setq warning-minimum-level :warning)
 
 (wolf/leader
   "q"   '(:ignore t :wk "Quit")
@@ -336,6 +337,8 @@
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (require 'org-tempo)
+
+(setq org-agenda-files '("~/org"))
 
 (use-package projectile
   :diminish
