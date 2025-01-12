@@ -467,14 +467,14 @@ General is a nice plugin for keybinding management. Setting it up here.
 
 #+begin_src emacs-lisp
 
-  (wolf/leader
-    "."  '(find-file :wk "Find File") 
-    "SPC"  '(counsel-M-x :wk "Counsel M-x") 
-    "f p" '((lambda () (interactive) (find-file "~/.config/emacs/README.org")) :wk "Edit emacs config")
-    "f n" '((lambda () (interactive) (find-file "~/.dotfiles/flake.nix")) :wk "Edit nix configuration")
-    "f r" '(counsel-recentf :wk "Find recent files")
-    "TAB TAB"  '(comment-line :wk "Comment lines") 
-  )
+(wolf/leader
+  "."  '(find-file :wk "Find File") 
+  "SPC"  '(counsel-M-x :wk "Counsel M-x") 
+  "f p" '((lambda () (interactive) (find-file "~/.config/emacs/README.org")) :wk "Edit emacs config")
+  "f n" '((lambda () (interactive) (find-file "~/.dotfiles/flake.nix")) :wk "Edit nix configuration")
+  "f r" '(counsel-recentf :wk "Find recent files")
+  "TAB TAB"  '(comment-line :wk "Comment lines") 
+)
 
 #+end_src
 
@@ -485,6 +485,7 @@ General is a nice plugin for keybinding management. Setting it up here.
 (wolf/leader
   "o"   '(:ignore t :wk "Org")
   "o e" '(org-export-dispatch :wk "Org export dispatch")
+  "o f" '((lambda () (interactive) (find-file "~/org")) :wk "Open the org files directory in dired")
   "o i" '(org-toggle-item :wk "Org toggle item")
   "o t" '(org-todo :wk "Org todo")
   "o I" '(org-toggle-inline-images :wk "Org toggle inline images")

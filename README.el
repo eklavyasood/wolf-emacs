@@ -249,6 +249,7 @@
 (wolf/leader
   "o"   '(:ignore t :wk "Org")
   "o e" '(org-export-dispatch :wk "Org export dispatch")
+  "o f" '((lambda () (interactive) (find-file "~/org")) :wk "Open the org files directory in dired")
   "o i" '(org-toggle-item :wk "Org toggle item")
   "o t" '(org-todo :wk "Org todo")
   "o I" '(org-toggle-inline-images :wk "Org toggle inline images")
