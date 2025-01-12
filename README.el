@@ -293,10 +293,10 @@
   "w l" '(evil-window-right :wk "Window right")
   "w w" '(evil-window-next :wk "Goto next window")
   ;; Move Windows
-  "w H" '(buf-move-left :wk "Buffer move left")
-  "w J" '(buf-move-down :wk "Buffer move down")
-  "w K" '(buf-move-up :wk "Buffer move up")
-  "w L" '(buf-move-right :wk "Buffer move right")))
+  "w H" '(buf-move-left :wk "Window move left")
+  "w J" '(buf-move-down :wk "Window move down")
+  "w K" '(buf-move-up :wk "Window move up")
+  "w L" '(buf-move-right :wk "Window move right")))
 
 (use-package lua-mode)
 (use-package nix-mode
