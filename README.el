@@ -13,6 +13,11 @@
 
 (setq backup-directory-alist '((".*" . "~/.local/share/Trash/files")))
 
+(use-package beacon
+  :init (beacon-mode))
+
+(setq beacon-size 180)
+
 (use-package company
   :defer 2
   :diminish
@@ -242,22 +247,22 @@
 )
 
 (wolf/leader
-  "m"   '(:ignore t :wk "Org")
-  "m e" '(org-export-dispatch :wk "Org export dispatch")
-  "m i" '(org-toggle-item :wk "Org toggle item")
-  "m t" '(org-todo :wk "Org todo")
-  "m I" '(org-toggle-inline-images :wk "Org toggle inline images")
-  "m B" '(org-babel-tangle :wk "Org babel tangle")
+  "o"   '(:ignore t :wk "Org")
+  "o e" '(org-export-dispatch :wk "Org export dispatch")
+  "o i" '(org-toggle-item :wk "Org toggle item")
+  "o t" '(org-todo :wk "Org todo")
+  "o I" '(org-toggle-inline-images :wk "Org toggle inline images")
+  "o B" '(org-babel-tangle :wk "Org babel tangle")
 
-  "m b" '(:ignore t :wk "Tables")
-  "m b -" '(org-table-insert-hline :wk "Insert hline in table")
+  "o b" '(:ignore t :wk "Tables")
+  "o b -" '(org-table-insert-hline :wk "Insert hline in table")
 
-  "m a" '(:ignore t :wk "Org Agenda")
-  "m a a" '(org-agenda :wk "Agenda")
-  "m a t" '(org-todo-list :wk "Org todo list")
+  "o a" '(:ignore t :wk "Org Agenda")
+  "o a a" '(org-agenda :wk "Agenda")
+  "o a t" '(org-todo-list :wk "Org todo list")
 
-  "m d" '(:ignore t :wk "Date/deadline")
-  "m d t" '(org-time-stamp :wk "Org time stamp")
+  "o d" '(:ignore t :wk "Date/deadline")
+  "o d t" '(org-time-stamp :wk "Org time stamp")
 )
 
 (wolf/leader
@@ -269,6 +274,7 @@
   "t"  '(:ignore t :wk "Toggle")
   "t l"  '(display-line-numbers-mode :wk "Toggle line numbers")
   "t n"  '(neotree-toggle :wk "Toggle neotree")
+  "t V"  '(vterm :wk "Toggle vterm fullscreen")
   "t v"  '(vterm-toggle :wk "Toggle vterm")
 )
 
@@ -299,6 +305,8 @@
 
 (use-package magit
   :ensure t)
+
+(global-set-key [escape] 'keyboard-escape-quit)
 
 (use-package doom-modeline
   :ensure t
@@ -349,6 +357,13 @@
   :diminish
   :hook
     ((org-mode prog-mode) . rainbow-mode))
+
+;; (electric-pair-mode 0)
+;; (add-hook 'org-mode-hook (lambda ()
+;;            (setq-local electric-pair-inhibit-predicate
+;;                    `(lambda (c)
+;;                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+(global-auto-revert-mode t)
 
 (use-package eshell-syntax-highlighting
   :after esh-mode

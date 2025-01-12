@@ -9,6 +9,7 @@
   - [[#sourcing-the-scripts][Sourcing the scripts]]
 - [[#all-the-icons][All The Icons]]
 - [[#backup][Backup]]
+- [[#beacon][Beacon]]
 - [[#company][Company]]
 - [[#dashboard][Dashboard]]
 - [[#diminish][Diminish]]
@@ -37,6 +38,7 @@
   - [[#window-keybindings][Window Keybindings]]
 - [[#language-support][Language Support]]
 - [[#magit][Magit]]
+- [[#minibuffer-escape][Minibuffer Escape]]
 - [[#modeline][Modeline]]
 - [[#neotree][Neotree]]
 - [[#org-mode][Org Mode]]
@@ -47,6 +49,7 @@
   - [[#setting-the-org-agenda-files-variable][Setting the ~org-agenda-files~ variable]]
 - [[#projectile][Projectile]]
 - [[#rainbow-mode][Rainbow Mode]]
+- [[#sane-defaults][Sane Defaults]]
 - [[#shells][Shells]]
   - [[#eshell][Eshell]]
   - [[#vterm][Vterm]]
@@ -99,6 +102,18 @@ By default, Emacs creates auto-backups of files in their original directoryes. T
 #+begin_src emacs-lisp
 
 (setq backup-directory-alist '((".*" . "~/.local/share/Trash/files")))
+
+#+end_src
+
+* Beacon
+Never lose that dang cursor again.
+
+#+begin_src emacs-lisp
+
+(use-package beacon
+  :init (beacon-mode))
+
+(setq beacon-size 180)
 
 #+end_src
 
@@ -468,22 +483,22 @@ General is a nice plugin for keybinding management. Setting it up here.
 #+begin_src emacs-lisp
 
 (wolf/leader
-  "m"   '(:ignore t :wk "Org")
-  "m e" '(org-export-dispatch :wk "Org export dispatch")
-  "m i" '(org-toggle-item :wk "Org toggle item")
-  "m t" '(org-todo :wk "Org todo")
-  "m I" '(org-toggle-inline-images :wk "Org toggle inline images")
-  "m B" '(org-babel-tangle :wk "Org babel tangle")
+  "o"   '(:ignore t :wk "Org")
+  "o e" '(org-export-dispatch :wk "Org export dispatch")
+  "o i" '(org-toggle-item :wk "Org toggle item")
+  "o t" '(org-todo :wk "Org todo")
+  "o I" '(org-toggle-inline-images :wk "Org toggle inline images")
+  "o B" '(org-babel-tangle :wk "Org babel tangle")
 
-  "m b" '(:ignore t :wk "Tables")
-  "m b -" '(org-table-insert-hline :wk "Insert hline in table")
+  "o b" '(:ignore t :wk "Tables")
+  "o b -" '(org-table-insert-hline :wk "Insert hline in table")
 
-  "m a" '(:ignore t :wk "Org Agenda")
-  "m a a" '(org-agenda :wk "Agenda")
-  "m a t" '(org-todo-list :wk "Org todo list")
+  "o a" '(:ignore t :wk "Org Agenda")
+  "o a a" '(org-agenda :wk "Agenda")
+  "o a t" '(org-todo-list :wk "Org todo list")
 
-  "m d" '(:ignore t :wk "Date/deadline")
-  "m d t" '(org-time-stamp :wk "Org time stamp")
+  "o d" '(:ignore t :wk "Date/deadline")
+  "o d t" '(org-time-stamp :wk "Org time stamp")
 )
 
 #+end_src
@@ -507,6 +522,7 @@ General is a nice plugin for keybinding management. Setting it up here.
   "t"  '(:ignore t :wk "Toggle")
   "t l"  '(display-line-numbers-mode :wk "Toggle line numbers")
   "t n"  '(neotree-toggle :wk "Toggle neotree")
+  "t V"  '(vterm :wk "Toggle vterm fullscreen")
   "t v"  '(vterm-toggle :wk "Toggle vterm")
 )
 
@@ -557,6 +573,15 @@ Installing Magit, the Emacs Git interface.
 
   (use-package magit
     :ensure t)
+
+#+end_src
+
+* Minibuffer Escape
+By default, Emacs requires you to hit ESC three times to escape quit a minibuffer.
+
+#+begin_src emacs-lisp
+
+(global-set-key [escape] 'keyboard-escape-quit)
 
 #+end_src
 
@@ -673,6 +698,20 @@ Displays previews for all colour codes.
     :diminish
     :hook
       ((org-mode prog-mode) . rainbow-mode))
+
+#+end_src
+
+* Sane Defaults
+These settings are simple modes that are enabled/disabled to make Emacs work more like a traditional IDE.
+
+#+begin_src emacs-lisp
+
+;; (electric-pair-mode 0)
+;; (add-hook 'org-mode-hook (lambda ()
+;;            (setq-local electric-pair-inhibit-predicate
+;;                    `(lambda (c)
+;;                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
+(global-auto-revert-mode t)
 
 #+end_src
 
