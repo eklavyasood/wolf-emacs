@@ -106,14 +106,14 @@ By default, Emacs creates auto-backups of files in their original directoryes. T
 #+end_src
 
 * Beacon
-Never lose that dang cursor again.
++Never lose that dang cursor again.+ Makes the whole experience kinda wonky by splitting and unsplitting lines everytime you jump cursor.
 
 #+begin_src emacs-lisp
 
-(use-package beacon
-  :init (beacon-mode))
+;; (use-package beacon
+;;   :init (beacon-mode))
 
-(setq beacon-size 180)
+;; (setq beacon-size 180)
 
 #+end_src
 

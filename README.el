@@ -13,10 +13,10 @@
 
 (setq backup-directory-alist '((".*" . "~/.local/share/Trash/files")))
 
-(use-package beacon
-  :init (beacon-mode))
+;; (use-package beacon
+;;   :init (beacon-mode))
 
-(setq beacon-size 180)
+;; (setq beacon-size 180)
 
 (use-package company
   :defer 2
